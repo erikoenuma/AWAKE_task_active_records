@@ -28,6 +28,6 @@ class ExercisesController < ApplicationController
     Customer.all.each{ |customer|
       customer.update(foods_price_sum: Order.joins(:foods).where(customer_id: customer.id).sum(:price))
     }
-    @customer = Customer.all.order("foods_price_sum DESC").first
+    @customer = Customer.joins(:orders).order("foods_price_sum DESC").first
   end
 end
